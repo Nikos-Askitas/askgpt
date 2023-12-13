@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 import os
 import sys
 
@@ -9,9 +9,9 @@ class AUTH(object):
         
         
     def HeyChatGPT(self,myPrompt):
-        openai.api_key = self.token
+        client = OpenAI(api_key = self.token)
         myPrompt = myPrompt
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                     {
@@ -26,7 +26,7 @@ class AUTH(object):
             frequency_penalty=0,
             presence_penalty=0
             )
-        return response["choices"][0]["message"]["content"]
+        return response.choices[0].message.content
 
     def ai(self,prompt):
         prompt = prompt
